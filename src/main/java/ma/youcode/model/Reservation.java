@@ -19,16 +19,29 @@ public class Reservation {
     @OneToOne
     @JoinColumn(name = "id_reservation_type")
     private ReservationType reservationType;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinTable( name = "room_reservation",
-            joinColumns = @JoinColumn( name = "id_reservation" ),
-            inverseJoinColumns = @JoinColumn( name = "id_room" ) )
+    @ManyToOne
+    @JoinColumn(name = "id_room")
     private Room room;
     @Column(name = "is_valide", nullable = false)
     @ColumnDefault("true")
     private boolean isValide;
 
     public Reservation() {
+    }
+
+
+
+    public Reservation(Timestamp date, User user, boolean isValide) {
+        this.date = date;
+        this.user = user;
+        this.isValide = isValide;
+    }
+
+    public Reservation(Timestamp date, User user, ReservationType reservationType, boolean isValide) {
+        this.date = date;
+        this.user = user;
+        this.reservationType = reservationType;
+        this.isValide = isValide;
     }
 
     public Reservation(Timestamp date, User user, ReservationType reservationType, Room room, boolean isValide) {
@@ -80,11 +93,11 @@ public class Reservation {
         this.reservationType = reservationType;
     }
 
-    public boolean isValide() {
+    public boolean getIsValide() {
         return isValide;
     }
 
-    public void setValide(boolean valide) {
+    public void setIsValide(boolean valide) {
         isValide = valide;
     }
 
@@ -95,4 +108,5 @@ public class Reservation {
     public void setRoom(Room room) {
         this.room = room;
     }
+
 }

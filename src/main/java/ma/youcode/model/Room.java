@@ -3,7 +3,7 @@ package ma.youcode.model;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.*;
 
 @Entity
@@ -17,27 +17,24 @@ public class Room {
     @ColumnDefault("30")
     private int usersNum;
     @Column(nullable = false)
-    private Timestamp date;
+    private Date date;
     @Column(name = "contains_event", nullable = false)
     @ColumnDefault("false")
     private boolean containsEvent;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable( name = "room_reservation",
-            joinColumns = @JoinColumn( name = "id_room" ),
-            inverseJoinColumns = @JoinColumn( name = "id_reservation" ) )
+    @OneToMany(mappedBy = "room")
     private List<Reservation> reservations = new ArrayList<>();
 
     public Room() {
     }
 
-    public Room(int usersNum, Timestamp date, boolean containsEvent, List<Reservation> reservations) {
+    public Room(int usersNum, Date date, boolean containsEvent) {
         this.usersNum = usersNum;
         this.date = date;
         this.containsEvent = containsEvent;
         this.reservations = reservations;
     }
 
-    public Room(Long idSession, int usersNum, Timestamp date, boolean containsEvent, List<Reservation> reservations) {
+    public Room(Long idSession, int usersNum, Date date, boolean containsEvent, List<Reservation> reservations) {
         this.idSession = idSession;
         this.usersNum = usersNum;
         this.date = date;
@@ -61,11 +58,11 @@ public class Room {
         this.usersNum = usersNum;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

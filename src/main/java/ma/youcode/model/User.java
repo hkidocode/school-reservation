@@ -1,12 +1,17 @@
 package ma.youcode.model;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
@@ -17,41 +22,68 @@ public class User {
     private String phone;
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations = new ArrayList<>();
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
     private String password;
-    @Column(name = "is_admin", nullable = false)
-    private boolean isAdmin;
-
+    @Column(name = "user_role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+    private Boolean enabled = false;
     public User() {
     }
 
-    public User(String name, String phone, List<Reservation> reservations, String email, String password, boolean isAdmin) {
+    public User(String name, String phone, String email, String password) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(Long idUser, String name, String phone, String email, String password) {
+        this.idUser = idUser;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String name, String phone, String email, String password, UserRole userRole) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.userRole = userRole;
+    }
+
+
+
+    public User(Long idUser, String name, String phone, String email, String password, UserRole userRole) {
+        this.idUser = idUser;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.userRole = userRole;
+    }
+
+    public User(String name, String phone, List<Reservation> reservations, String email, String password, UserRole userRole) {
         this.name = name;
         this.phone = phone;
         this.reservations = reservations;
         this.email = email;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.userRole = userRole;
     }
 
-    public User(String name, String phone, String email, String password, boolean isAdmin) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
-        this.isAdmin = isAdmin;
-    }
-
-    public User(Long idUser, String name, String phone, List<Reservation> reservations, String email, String password, boolean isAdmin) {
+    public User(Long idUser, String name, String phone, List<Reservation> reservations, String email, String password, UserRole userRole) {
         this.idUser = idUser;
         this.name = name;
         this.phone = phone;
         this.reservations = reservations;
         this.email = email;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.userRole = userRole;
     }
 
     public Long getIdUser() {
@@ -86,10 +118,6 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -102,11 +130,54 @@ public class User {
         this.reservations = reservations;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
 }
