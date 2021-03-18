@@ -1,0 +1,245 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 15px;
+}
+
+body {
+    background: #FFF;
+    color: #252525;
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: 'Varela Round', sans-serif;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+}
+
+header {
+    background: #252525;
+}
+
+header nav ul {
+    width: 65rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .7rem;
+    list-style: none;
+}
+
+header nav ul .flex {
+    display: flex;
+    align-items: center;
+}
+
+header nav ul li,a {
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #FAFAFA;
+    transition: all .2s ease;
+}
+
+header nav ul .link {
+    background: tomato;
+    padding: .35rem 1.1rem;
+    font-size: .8rem;
+    border-radius: 3px;
+    font-weight: 600;
+    border: 2px solid tomato;
+    transition: all .2s ease;
+    margin-left: 2.5rem;
+}
+
+header nav ul .add-rsv {
+    background: #00B4FF;
+    padding: .31rem 1.1rem;
+    font-size: 1rem;
+    text-transform: none;
+    border-radius: 3px;
+    transition: all .2s ease;
+}
+
+header nav ul .add-rsv:active {
+    transform: scale(.97);
+}
+
+header nav ul .add-rsv:hover {
+    background: #009bdd;
+}
+
+header nav ul .link:hover {
+    background: transparent;
+}
+
+header nav ul img {
+    max-width: 100%;
+    width: 9rem;
+}
+
+main {
+    height: calc(100vh - 64px);
+}
+
+.rsv-historique {
+    padding: 2rem 7rem;
+    height: 100%;
+}
+
+.rsv-historique .tabs-sidebar {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.rsv-historique .tabs-btn {
+    cursor: pointer;
+    padding: .7rem;
+    outline: none;
+    border: none;
+    font-weight: 600;
+    color: #252525;
+    text-transform: uppercase;
+    width: 100%;
+    font-family: 'Varela Round', sans-serif;
+    transition: all .1s ease;
+}
+
+.rsv-historique .btn-1 {
+    border-radius: 3px 0 0 3px;
+}
+
+.rsv-historique .btn-3 {
+    border-radius: 0 3px 3px 0;
+}
+
+.rsv-historique .tabs-btn-active {
+    font-weight: bold;
+    Color: #FFF;
+    background: tomato;
+}
+
+.rsv-historique .tabs-content {
+    padding: 15px;
+    font-size: .8rem;
+    display: none;
+    width: 100%;
+}
+
+.rsv-historique .tabs-content-active {
+    display: block;
+}
+
+.content-table {
+    border-collapse: collapse;
+    width: 75%;
+    margin: 1.5rem auto;
+    font-size: .86rem;
+    min-width: 400px;
+    border-radius: 4px 4px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.1);
+}
+
+.content-table thead tr {
+    background-color: #009bdd;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009bdd;
+}
+
+.content-table tbody tr:hover {
+    font-weight: bold;
+    color: #009bdd;
+}
+
+.modal .modal-dialog {
+    max-width: 400px;
+}
+
+.modal .modal-header,
+.modal .modal-body,
+.modal .modal-footer {
+    padding: 20px 30px;
+}
+
+.modal .modal-content {
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.modal .modal-footer {
+    border-radius: 0 0 3px 3px;
+}
+
+.modal .modal-title {
+    display: inline-block;
+}
+
+.modal .form-control {
+    border-radius: 2px;
+    box-shadow: none;
+    border-color: #dddddd;
+}
+
+.modal textarea.form-control {
+    resize: vertical;
+}
+
+.modal .btn {
+    border-radius: 2px;
+    min-width: 100px;
+}
+
+.modal form label {
+    font-weight: normal;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #FFF;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

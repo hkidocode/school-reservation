@@ -1,0 +1,229 @@
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 15px;
+}
+
+body {
+    /* background: #F5F5F5; */
+    background: #FFF;
+    color: #252525;
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: 'Varela Round', sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    background: #252525;
+}
+
+header nav ul {
+    width: 45rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .7rem;
+    list-style: none;
+}
+
+header nav ul a {
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #FAFAFA;
+    transition: all .2s ease;
+}
+
+header nav ul a:hover {
+    color: #00B4FF;
+}
+
+header nav ul img {
+    max-width: 100%;
+    width: 9.7rem;
+}
+
+main {
+    padding: 2rem;
+}
+
+.heading-container {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.heading-container h1 {
+    width: 43rem;
+    margin: 0 auto;
+    font-size: 1.9rem;
+    color: #404756;
+}
+
+.heading-container .learn-btn:hover {
+    background: transparent;
+    border: 2px solid #887455;
+}
+
+.body-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body-container .global-img,
+.body-container .form-signin {
+    margin: 2rem;
+}
+
+.body-container .global-img {
+    flex-basis: 55%;
+}
+
+.body-container img {
+    width: 100%;
+    min-height: 100%;
+}
+
+
+.form-hidden {
+    display: none;
+}
+
+.form-signin .form-title {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.6rem;
+}
+
+.form-signin .form-message {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: .5rem;
+    border-radius: 4px;
+}
+
+.form-signin .form-message-error {
+    color: #FFF;
+    background: #f44336;
+}
+
+.form-signin .form-group {
+    margin-bottom: 1rem;
+}
+
+.form-signin .input {
+    display: block;
+    width: 100%;
+    padding: .8rem;
+    font-size: 1.04rem;
+    border-radius: 4px;
+    border: 2px solid #dddddd;
+    outline: none;
+    background: #eeeeee;
+    font-family: 'Varela Round', sans-serif;
+    transition: all .2s ease;
+}
+
+.form-signin .input:focus {
+    border: 2px solid #00B4FF;
+    background: #FFFFFF;
+}
+
+.form-signin .input-error {
+    border: 2px solid #f44336;
+}
+
+.form-signin .form-input-error-message {
+    margin-top: .4rem;
+    color: #f44336;
+    font-size: .9rem;
+}
+
+.form-signin .submit-btn {
+    cursor: pointer;
+    padding: .8rem 2rem;
+    width: 100%;
+    background: #00B4FF;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    color: #FFF;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all .2s ease;
+    font-size: .9rem;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    font-family: 'Varela Round', sans-serif;
+}
+
+.form-signin .submit-btn:hover {
+    background: #009bdd;
+}
+
+.form-signin .submit-btn:active {
+    transform: scale(.97);
+}
+
+
+.form-signin .google-sign-in {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .6rem 2rem;
+    width: 100%;
+    background: #DE5246;
+    outline: none;
+    border-radius: 4px;
+    color: #FFF;
+    font-size: 1rem;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-family: 'Varela Round', sans-serif;
+    margin-bottom: 1rem;
+    transition: all .2s ease;
+}
+
+.form-signin .google-sign-in:hover {
+    background: #c0473c;
+}
+
+.form-signin .google-sign-in:active  {
+    transform: scale(.97);
+}
+
+
+.form-signin .google-sign-in ion-icon {
+    margin-right: .8rem;
+    color: #FFF;
+    font-size: 1.2rem;
+}
+
+.form-signin .form-text {
+    text-align: center;
+    margin-bottom: .7rem;
+}
+
+.form-signin .form-link {
+    color: #404756;
+    text-decoration: none;
+    padding: 1rem;
+    transition: all .2s ease;
+}
+
+.form-signin .form-link:hover {
+    color: #0090FA;
+}
+
+.form-signin .form-link:hover {
+    text-decoration: underline;
+}

@@ -985,6 +985,7 @@ sequence|table|36977|36979|1
     </table>
     <table id="41" parent="23" name="reservations">
       <ObjectId>36960</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>postgres</Owner>
       <StateNumber>4446</StateNumber>
     </table>

@@ -7,168 +7,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-    <style>
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            font-size: 15px;
-        }
-
-        body {
-            /* background: #F5F5F5; */
-            background: #FFF;
-            color: #252525;
-            font-size: 1rem;
-            font-weight: 400;
-            font-family: 'Varela Round', sans-serif;
-            line-height: 1.6;
-        }
-
-        header {
-            background: #252525;
-        }
-
-        header nav ul {
-            width: 65rem;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            list-style: none;
-        }
-
-        header nav ul li, a {
-            text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #FAFAFA;
-            transition: all .2s ease;
-        }
-
-        header nav ul a {
-            color: #00B4FF;
-        }
-
-        header nav ul img {
-            max-width: 100%;
-            width: 9rem;
-        }
-
-        main {
-            display: flex;
-        }
-
-        .tabs-sidebar {
-            width: 6rem;
-            height: calc(100vh - 54px);
-            flex-shrink: 0;
-            background: #CCCCCC;
-        }
-
-        .tabs-btn {
-            cursor: pointer;
-            display: block;
-            padding: .7rem;
-            background: #EEEEEE;
-            outline: none;
-            border: none;
-            width: 100%;
-        }
-
-        .tabs-btn:active {
-            background: #DDDDDD;
-        }
-
-        .tabs-btn:not(:last-of-type) {
-            border-bottom: 1px solid #CCCCCC;
-        }
-
-        .tabs-btn-active {
-            font-weight: bold;
-            border-right: 2px solid #00B4FF;
-            background: #DDDDDD;
-        }
-
-        .tabs-content {
-            padding: 15px;
-            font-size: .95rem;
-            display: none;
-            width: 100%;
-        }
-
-        .tabs-content-active {
-            display: block;
-        }
-
-        .content-table {
-            border-collapse: collapse;
-            width: 90%;
-            margin: 1.5rem auto;
-            font-size: .85rem;
-            min-width: 400px;
-            border-radius: 4px 4px 0 0;
-            overflow: hidden;
-            box-shadow: 0 0 18px rgba(0, 0, 0, 0.1);
-        }
-
-        .content-table thead tr {
-            background-color: #009bdd;
-            color: #ffffff;
-            font-weight: bold;
-        }
-
-        .content-table th,
-        .content-table td {
-            padding: 10px 12px;
-            text-align: center;
-        }
-
-        .content-table tbody tr {
-            border-bottom: 1px solid #dddddd;
-        }
-
-        .content-table tbody tr:nth-of-type(even) {
-            background-color: #f3f3f3;
-        }
-
-        .content-table tbody tr:last-of-type {
-            border-bottom: 2px solid #009bdd;
-        }
-
-        .content-table tbody tr:hover {
-            font-weight: bold;
-            color: #009bdd;
-        }
-
-        .btns {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        ion-icon {
-            color: #252525;
-            font-size: 1.43rem;
-        }
-
-        .accept {
-            color: #66CD00;
-            margin-right: 1rem;
-        }
-
-        .delete {
-            color: #f44336;
-        }
-
-    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/files/css/dashboard.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <title>Gestion d'accès à Youcode - Tableau de board</title>
 </head>
 
@@ -176,9 +21,13 @@
 <header>
     <nav>
         <ul>
-            <li><a href="#"><img src="logo.png" alt="logo" class="logo"></a></li>
-            <li>Mustapha Kadouri</li>
-            <li><a href="#" class=".link">Déconnexion</a></li>
+            <li><a href="#"><img src="${pageContext.request.contextPath}/files/img/logo.png" alt="logo" class="logo"></a></li>
+            <li>
+                <div class="flex">
+                    <a href="#addRoomModal" data-toggle="modal" class="add-rsv">Ajouter un room</a>
+                    <a href="#" class="link">Déconnexion</a>
+                </div>
+            </li>
         </ul>
     </nav>
 </header>
@@ -232,35 +81,44 @@
             necessitatibus, quisquam eaque quidem eveniet recusandae repudiandae iusto cupiditate eligendi odit enim
             provident amet ea eius.</p>
     </section>
+    <!-- Add Modal HTML -->
+    <div id="addRoomModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="insert" method="post">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add User</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" name="first-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" name="last-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-success" value="Add">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </main>
 <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
-<script>
-    function setupTabs() {
-        document.querySelectorAll('.tabs-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const sidebar = btn.parentElement;
-                const tabsContainer = sidebar.parentElement;
-                const tabContentToActive = tabsContainer.querySelector(".tabs-content[data-tab='${btn.dataset.forTab}']");
-
-                sidebar.querySelectorAll('.tabs-btn').forEach(btn => {
-                    btn.classList.remove('tabs-btn-active');
-                });
-
-                tabsContainer.querySelectorAll('.tabs-content').forEach(tab => {
-                    tab.classList.remove('tabs-content-active');
-                });
-
-                btn.classList.add('tabs-btn-active');
-                tabContentToActive.classList.add('tabs-content-active');
-            });
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        setupTabs();
-    });
-
-</script>
+<script src="${pageContext.request.contextPath}/files/js/dashboard.js"></script>
 </body>
 
 </html>
