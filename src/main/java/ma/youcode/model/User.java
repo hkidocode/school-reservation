@@ -1,17 +1,12 @@
 package ma.youcode.model;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
@@ -30,7 +25,13 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private Boolean enabled = false;
+    private Boolean actived = true;
+
     public User() {
+    }
+
+    public User(String email) {
+        this.email = email;
     }
 
     public User(String name, String phone, String email, String password) {
@@ -67,7 +68,7 @@ public class User implements UserDetails {
         this.userRole = userRole;
     }
 
-    public User(String name, String phone, List<Reservation> reservations, String email, String password, UserRole userRole) {
+    public User(String name, String phone, List<Reservation> reservations, String email, String password, UserRole userRole, Boolean active) {
         this.name = name;
         this.phone = phone;
         this.reservations = reservations;
@@ -76,7 +77,7 @@ public class User implements UserDetails {
         this.userRole = userRole;
     }
 
-    public User(Long idUser, String name, String phone, List<Reservation> reservations, String email, String password, UserRole userRole) {
+    public User(Long idUser, String name, String phone, List<Reservation> reservations, String email, String password, UserRole userRole, Boolean active) {
         this.idUser = idUser;
         this.name = name;
         this.phone = phone;
@@ -122,6 +123,10 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public List<Reservation> getReservations() {
         return reservations;
     }
@@ -146,38 +151,11 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-    @Override
-    public String getPassword() {
-        return password;
+    public Boolean getActived() {
+        return actived;
     }
 
-    @Override
-    public String getUsername() {
-        return email;
+    public void setActived(Boolean actived) {
+        this.actived = actived;
     }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
 }

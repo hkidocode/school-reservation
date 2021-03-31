@@ -19,9 +19,6 @@ body {
     line-height: 1.6;
 }
 
-a {
-    text-decoration: none;
-}
 
 header {
     background: #252525;
@@ -42,7 +39,8 @@ header nav ul .flex {
     align-items: center;
 }
 
-header nav ul li,a {
+header nav ul li,
+header nav ul a {
     text-decoration: none;
     font-weight: 600;
     text-transform: uppercase;
@@ -94,6 +92,10 @@ main {
 .rsv-historique {
     padding: 2rem 7rem;
     height: 100%;
+}
+
+.rsv-historique .alert {
+    font-size: .97rem;
 }
 
 .rsv-historique .tabs-sidebar {
@@ -211,6 +213,10 @@ main {
     border-color: #dddddd;
 }
 
+.modal .date-rsv:hover {
+    cursor: not-allowed;
+}
+
 .modal textarea.form-control {
     resize: vertical;
 }
@@ -227,6 +233,11 @@ main {
 a:hover {
     text-decoration: none;
     color: #FFF;
+}
+
+button:focus {
+    outline: none;
+    border: none;
 }
 
 

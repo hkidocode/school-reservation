@@ -1,31 +1,25 @@
 package ma.youcode.dao;
 
-import ma.youcode.HibernateUtil;
 import ma.youcode.model.ReservationType;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
 public class ReservationTypeDaoImpl implements ReservationTypeDao{
 
-    Session session = null;
-    Transaction transaction = null;
-    ReservationType reservationType = null;
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Override
     public List<ReservationType> getAllReservationType() {
         List<ReservationType> reservationTypes = null;
+        Session session = sessionFactory.getCurrentSession();
         try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            reservationTypes = session.createQuery("SELECT rt FROM ReservationType rt", ReservationType.class).getResultList();
-            transaction.commit();
+            reservationTypes =  session.createQuery("SELECT rt FROM ReservationType rt", ReservationType.class).getResultList();
         } catch (Throwable throwable) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throwable.printStackTrace();
         }
         return reservationTypes;
@@ -33,30 +27,21 @@ public class ReservationTypeDaoImpl implements ReservationTypeDao{
 
     @Override
     public void addReservationType(ReservationType reservationType) {
+        Session session = sessionFactory.getCurrentSession();
         try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
             session.save(reservationType);
-            transaction.commit();
         } catch (Throwable throwable) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throwable.printStackTrace();
         }
     }
 
     @Override
-    public ReservationType getReservationType(Long idReservationType) {
+    public ReservationType getReservationType(int idReservationType) {
+        Session session = sessionFactory.getCurrentSession();
+        ReservationType reservationType = null;
         try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            reservationType =  session.get(ReservationType.class, idReservationType);
-            transaction.commit();
+            reservationType = session.get(ReservationType.class, idReservationType);
         } catch (Throwable throwable) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throwable.printStackTrace();
         }
         return reservationType;

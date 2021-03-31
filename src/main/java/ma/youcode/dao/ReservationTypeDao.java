@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ReservationTypeDao {
     void addReservationType(ReservationType reservationType);
-    ReservationType getReservationType(Long idReservationType);
+    ReservationType getReservationType(int idReservationType);
     List<ReservationType> getAllReservationType();
 }

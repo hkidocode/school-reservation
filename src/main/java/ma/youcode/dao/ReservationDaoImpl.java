@@ -1,30 +1,25 @@
 package ma.youcode.dao;
 
-import ma.youcode.HibernateUtil;
 import ma.youcode.model.Reservation;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
 public class ReservationDaoImpl implements ReservationDao {
-    Session session = null;
-    Transaction transaction = null;
-    Reservation reservation = null;
+
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Override
     public Reservation getReservation(Long idReservation) {
+        Session session = sessionFactory.getCurrentSession();
+        Reservation reservation = null;
         try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
             reservation = session.get(Reservation.class, idReservation);
-            transaction.commit();
         } catch (Throwable throwable) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throwable.printStackTrace();
         }
         return reservation;
@@ -32,24 +27,18 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public void addReservation(Reservation reservation) {
+        Session session = sessionFactory.getCurrentSession();
         try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            session.save(reservation);
-            transaction.commit();
+            session.persist(reservation);
         } catch (Throwable throwable) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throwable.printStackTrace();
         }
     }
 
     @Override
     public void updateReservation(Reservation reservation, Long idReservation) {
+        Session session = sessionFactory.getCurrentSession();
         try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
             Reservation existentReservation = getReservation(idReservation);
             existentReservation.setReservationType(reservation.getReservationType());
             existentReservation.setDate(reservation.getDate());
@@ -57,42 +46,28 @@ public class ReservationDaoImpl implements ReservationDao {
             existentReservation.setRoom(reservation.getRoom());
             existentReservation.setIsValide(reservation.getIsValide());
             session.update(existentReservation);
-            transaction.commit();
         } catch (Throwable throwable) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throwable.printStackTrace();
         }
     }
 
     @Override
     public void deleteReservation(Reservation reservation) {
+        Session session = sessionFactory.getCurrentSession();
         try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
             session.delete(reservation);
-            transaction.commit();
         } catch (Throwable throwable) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throwable.printStackTrace();
         }
     }
 
     @Override
     public List<Reservation> getAllReservations() {
+        Session session = sessionFactory.getCurrentSession();
         List<Reservation> reservations = null;
         try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
             reservations = session.createQuery("SELECT r FROM Reservation r", Reservation.class).getResultList();
-            transaction.commit();
         } catch (Throwable throwable) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             throwable.printStackTrace();
         }
         return reservations;

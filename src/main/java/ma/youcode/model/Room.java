@@ -14,7 +14,6 @@ public class Room {
     @Column(name = "id_room")
     private Long idSession;
     @Column(name = "users_num", nullable = false)
-    @ColumnDefault("30")
     private int usersNum;
     @Column(nullable = false)
     private Date date;
@@ -27,11 +26,15 @@ public class Room {
     public Room() {
     }
 
+    public Room(int usersNum, Date date) {
+        this.usersNum = usersNum;
+        this.date = date;
+    }
+
     public Room(int usersNum, Date date, boolean containsEvent) {
         this.usersNum = usersNum;
         this.date = date;
         this.containsEvent = containsEvent;
-        this.reservations = reservations;
     }
 
     public Room(Long idSession, int usersNum, Date date, boolean containsEvent, List<Reservation> reservations) {

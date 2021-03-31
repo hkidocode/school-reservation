@@ -34,13 +34,20 @@ header nav ul {
     list-style: none;
 }
 
-header nav ul li,a {
+header nav ul .flex {
+    display: flex;
+    align-items: center;
+}
+
+header nav ul li,
+header nav ul a {
     text-decoration: none;
     font-weight: 600;
     text-transform: uppercase;
     color: #FAFAFA;
     transition: all .2s ease;
 }
+
 
 header nav ul .link {
     background: tomato;
@@ -77,11 +84,10 @@ header nav ul .link:hover {
 
 header nav ul img {
     max-width: 100%;
-    width: 9.7rem;
+    width: 9rem;
 }
 
 main {
-    border: 1px solid #CCCCCC;
     display: flex;
     height: calc(100vh - 64px);
 }
@@ -95,7 +101,7 @@ main {
 .tabs-btn {
     cursor: pointer;
     display: block;
-    padding: .7rem;
+    padding: .6rem;
     background: #EEEEEE;
     outline: none;
     border: none;
@@ -121,6 +127,33 @@ main {
     font-size: .8rem;
     display: none;
     width: 100%;
+}
+
+.tabs-content .search-by-date {
+    margin-left: 4.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.tabs-content .search-by-date .date {
+    padding: .1rem .3rem;
+    margin-right: 1rem;
+    font-size: 1.01rem;
+}
+
+.tabs-content .search-by-date .search-btn {
+    display: inline-block;
+    padding: .3rem 2rem;
+    background: tomato;
+    border: none;
+    outline: none;
+    font-size: .95rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: #FFF;
+    border-radius: 3px;
 }
 
 .tabs-content-active {
@@ -188,3 +221,63 @@ ion-icon {
     color: #f44336;
 }
 
+.modal .modal-dialog {
+    max-width: 400px;
+}
+
+.modal .modal-header,
+.modal .modal-body,
+.modal .modal-footer {
+    padding: 20px 30px;
+}
+
+.modal .modal-content {
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.modal .modal-footer {
+    border-radius: 0 0 3px 3px;
+}
+
+.modal .modal-title {
+    display: inline-block;
+}
+
+.modal .form-control {
+    border-radius: 2px;
+    box-shadow: none;
+    border-color: #dddddd;
+}
+
+.modal textarea.form-control {
+    resize: vertical;
+}
+
+.modal .btn {
+    border-radius: 2px;
+    min-width: 100px;
+}
+
+.modal form label {
+    font-weight: normal;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #FFF;
+}
+
+button {
+    outline: none;
+}
+
+.event-div {
+    display: flex;
+}
+
+.event-div .checkbox {
+    width: 1.3rem;
+    height: 1.3rem;
+    margin-right: .5rem;
+}

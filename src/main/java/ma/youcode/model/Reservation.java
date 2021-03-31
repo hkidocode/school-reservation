@@ -1,6 +1,5 @@
 package ma.youcode.model;
 
-import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -23,7 +22,6 @@ public class Reservation {
     @JoinColumn(name = "id_room")
     private Room room;
     @Column(name = "is_valide", nullable = false)
-    @ColumnDefault("true")
     private boolean isValide;
 
     public Reservation() {

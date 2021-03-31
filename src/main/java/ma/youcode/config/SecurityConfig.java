@@ -1,7 +1,6 @@
 package ma.youcode.config;
 
-import ma.youcode.dao.UserDao;
-import ma.youcode.dao.UserDaoImpl;
+import ma.youcode.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,13 +10,48 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDao userDao = new UserDaoImpl();
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.jdbcAuthentication().dataSource(dataSource)
+//                .usersByUsernameQuery("SELECT email AS principal, password AS credentials, enabled FROM users WHERE email = ?")
+//                .authoritiesByUsernameQuery("SELECT user_role AS role FROM users WHERE user_role = ?")
+//                .passwordEncoder(passwordEncoder());
+//        auth.userDetailsService(authenticationProvider());
+
+
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.authorizeRequests()
+                .antMatchers("/reservation/**").hasRole("USER")
+                .antMatchers("/dashboard/**").hasRole("ADMIN")
+                .and()
+                .formLogin()
+                .loginPage("/signin")
+                .loginProcessingUrl("/authentificate-user")
+                .successHandler(customAuthenticationSuccessHandler)
+                .permitAll()
+                .and()
+                .logout().permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/access-denied");
+
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -26,35 +60,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDao);
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(
-                        "home",
-                        "/register",
-                        "js/**",
-                        "css/**",
-                        "img/**").permitAll()
-                .anyRequest().authenticated()
-                .and().formLogin()
-                .loginPage("/home")
-                .permitAll()
-                .and().logout().invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
-                .permitAll();
-
+        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+        auth.setUserDetailsService(userService); //set the custom user details service
+        auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt
+        return auth;
     }
 }
